@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 // Material
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     MatToolbarModule,
     MatTableModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
