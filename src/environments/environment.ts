@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  URL: 'http://201.131.20.74:8080/workingmons-ws/insumos/consultaAll'
 };
 
 /*

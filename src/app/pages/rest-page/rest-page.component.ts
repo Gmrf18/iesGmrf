@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestService } from 'src/app/services/rest.service';
 
 @Component({
   selector: 'app-rest-page',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private restService: RestService) { }
+
+  resutados: any[] = [];
+  displayedColumns: string[] = [];
 
   ngOnInit() {
+    this.postUser();
+  }
+  postUser(userId: number = 3) {
+    this.restService.postUsuario({usuario_id: userId})
+    .subscribe(resp => this.resutados = resp.resultados
+    );
   }
 
 }
