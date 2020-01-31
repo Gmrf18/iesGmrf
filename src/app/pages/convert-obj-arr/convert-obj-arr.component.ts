@@ -39,7 +39,8 @@ export class ConvertObjArrComponent implements OnInit {
 
   ngOnInit() {
     this.ObjectCreated = this.convertArrayToObject(this.dataA, 'id');
-    this.ArrayCreated = this.convertObjectToArray(this.ObjectCreated); // Object.values(ArrayCreated)
+    this.ArrayCreated = this.convertObjectToArray(this.ObjectCreated);
+    // this.ArrayCreated =  Object.values(ObjectCreated) importar polyfills para usar Object.values
     console.log(this.ObjectCreated);
     console.log(this.ArrayCreated);
   }
