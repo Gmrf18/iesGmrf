@@ -18,9 +18,9 @@ export class RestService {
 
   postUsuario(body: { usuario_id: number }) {
     return this.http.post<Respuesta>(this.URL, body, { headers: this.headers }).pipe(
+      retry(2),
       catchError(this.errorHandler),
       pluck('resultados'),
-      retry(1),
     );
   }
   errorHandler(error: HttpErrorResponse) {
