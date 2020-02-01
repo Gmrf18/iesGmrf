@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/services/rest.service';
+import { Insumo } from 'src/app/interfaces/insumo.interface';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-rest-page',
@@ -10,15 +13,21 @@ export class RestPageComponent implements OnInit {
 
   constructor(private restService: RestService) { }
 
-  resutados: any[] = [{usuario_id: 25656, name: 'Gerardo Manuel Reyes', age: 29}];
-  displayedColumns: string[] = ['usuario_id', 'name' , 'age'];
+  resutados$: Observable<Insumo[]>;
+  displayedColumns: string[] = [
+    'insumo_id',
+    'nombre',
+    'unidad_medida',
+    'contenido_neto',
+    'costo_por_unidad',
+    'costo_empaque',
+    'usuario_id',
+  ];
 
   ngOnInit() {
-   // this.postUser(); // Comentado ya que resuñtados está vacio
+    this.postUser();
   }
   postUser(userId: number = 3) {
-    this.restService.postUsuario({usuario_id: userId})
-    .subscribe(resp => this.resutados = resp.resultados
-    );
+    this.resutados$ = this.restService.postUsuario({usuario_id: userId});
   }
 }
