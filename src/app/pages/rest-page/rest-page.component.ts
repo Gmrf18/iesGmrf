@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { RestService } from 'src/app/services/rest.service';
 import { Insumo } from 'src/app/interfaces/insumo.interface';
-import { Observable } from 'rxjs';
-
+import { Subscription } from 'rxjs';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-rest-page',
   templateUrl: './rest-page.component.html',
   styleUrls: ['./rest-page.component.scss']
 })
-export class RestPageComponent implements OnInit {
+export class RestPageComponent implements OnInit, OnDestroy {
 
+  @ViewChild(MatSort, { static: true }) Sort: MatSort;
   constructor(private restService: RestService) { }
 
-  resutados$: Observable<Insumo[]>;
+  dataSource: MatTableDataSource<Insumo[]>;
+  dataSourceSubs: Subscription;
   displayedColumns: string[] = [
     'insumo_id',
     'nombre',
@@ -28,6 +31,13 @@ export class RestPageComponent implements OnInit {
     this.postUser();
   }
   postUser(userId: number = 3) {
-    this.resutados$ = this.restService.postUsuario({usuario_id: userId});
+    this.dataSourceSubs = this.restService.postUsuario({ usuario_id: userId })
+      .subscribe((resultados: any[]) => {
+        this.dataSource = new MatTableDataSource(resultados) ;
+        this.dataSource.sort = this.Sort; });
+  }
+
+  ngOnDestroy() {
+    this.dataSourceSubs.unsubscribe();
   }
 }
